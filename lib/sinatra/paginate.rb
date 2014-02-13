@@ -4,7 +4,7 @@ require 'uri'
 
 module Sinatra
   module Paginate
-    DEFAULTS = {:items_per_page => 20, :width => 5, :renderer => 'erubis', :labels => {:first => '«', :last => '»'}}
+    DEFAULTS = {:items_per_page => 20, :width => 5, :renderer => 'erb', :labels => {:first => '«', :last => '»'}}
 
     def paginate resource, options = {}
       raise ArgumentError, 'resource should respond to :total' unless resource.respond_to?(:total)
@@ -35,7 +35,7 @@ module Sinatra
     end
 
     def paginate_erb
-      @@erubis ||= File.read(File.join(File.dirname(__FILE__), 'views', 'pagination_nav.erb'))
+      @@erb ||= File.read(File.join(File.dirname(__FILE__), 'views', 'pagination_nav.erb'))
     end
 
     def page

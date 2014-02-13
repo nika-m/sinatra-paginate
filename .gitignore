@@ -2,3 +2,4 @@
 .bundle
 gems/
 tmp/
+.DS_Store
