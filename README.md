@@ -1,3 +1,7 @@
+# sinatra-paginate, 1.8.7 style
+
+modified to work with ruby 1.8.7 (don't ask) and some minor additions.
+
 # Sinatra Paginate
 
 A simple Sinatra pagination helper.

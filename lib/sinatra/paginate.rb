@@ -6,7 +6,7 @@ module Sinatra
   module Paginate
     DEFAULTS = {:items_per_page => 20, :width => 5, :renderer => 'erb', :labels => {:first => '«', :last => '»'}}
 
-    def paginate resource, options = {}
+    def pagination_domination resource, options = {}
       raise ArgumentError, 'resource should respond to :total' unless resource.respond_to?(:total)
       raise ArgumentError, 'resource should respond to :size'  unless resource.respond_to?(:size)
 
@@ -57,6 +57,11 @@ module Sinatra
       params = path[-1].respond_to?(:to_hash) ? path.delete_at(-1).to_hash : {}
       params = params.empty? ? '' : '?' + URI.escape(params.map{|*a| a.join('=')}.join('&')).to_s
       ['/', path.compact.map(&:to_s)].flatten.join('/').gsub(%r{/+}, '/') + params
+    end
+
+    def build_paginated_obj total, size, items_list
+      Struct.new('Results', :total, :size, :items)
+      Struct::Results.new(total, size, items_list)
     end
 
     def self.registered app
